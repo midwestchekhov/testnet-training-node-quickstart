@@ -19,17 +19,45 @@ gemma_template = {
 }
 
 mistral_template = {
+    # Represents the system prompt, likely used as the very first instruction turn.
+    # The actual Jinja logic for placement is complex, this is an approximation.
     "system_format": "<s>[INST] {content} [/INST]",
-    "user_format": "<s>[INST] {content} [/INST]",
+
+    # Standard user turn format
+    "user_format": "<s>[INST] {content} [/INST]", # Assuming BOS needed per turn based on Jinja structure
+
+    # Standard assistant turn format
     "assistant_format": " {content} </s>",
-    "system": "You are a helpful assistant.",
+
+    "system": "You are a helpful assistant.", # Default system prompt content
+
+    # --- UPDATED Tool/Function/Observation Formats ---
+    # Based on official chat template structures. These are simplified representations.
+    # Represents the assistant generating a tool call.
+    "tool_format": "[TOOL_CALLS] {content} </s>",
+    # Represents the details of a function within a tool call (approximation)
+    "function_format": "{content}",
+    # Represents the tool results being fed back.
+    "observation_format": "[TOOL_RESULTS] {content} [/TOOL_RESULTS]",
 }
 
 llama2_template = {
-    "system_format": "<<SYS>>\n{content}\n<</SYS>>\n\n",
-    "user_format": "<s>[INST] {system_prompt}{content} [/INST]",
-    "assistant_format": " {content} </s>",
-    "system": "You are a helpful assistant.",
+    # Captures the system prompt structure. Needs careful handling by the training script.
+    "system_format": "<<SYS>>\n{content}\n<</SYS>>\n\n", # Note: BOS/INST are handled below/by script logic
+
+    # Standard user turn. Assumes BOS is prepended by script, includes INST.
+    # The content might include the system prompt based on Jinja logic for the first turn.
+    "user_format": "[INST] {content} [/INST]",
+
+    # Standard assistant turn format
+    "assistant_format": " {content} </s>", # Includes leading space and EOS
+
+    "system": "You are a helpful assistant.", # Default system prompt content
+
+    # --- Placeholders for Tools ---
+    "tool_format": "{content}",
+    "function_format": "{content}",
+    "observation_format": "{content}",
 }
 
 model2template = {
@@ -40,7 +68,7 @@ model2template = {
     "google/gemma-7b": gemma_template,
     "Qwen/Qwen1.5-14B-Chat": qwen_template,
     "google/gemma-2-9b-it": gemma_template,
-    "mistralai/Mistral-7B-instruct-v0.3": mistral_template,
+    "mistralai/Mistral-7B-Instruct-v0.3": mistral_template,
     "meta-llama/Llama-2-13b-chat-hf": llama2_template
 }
 
@@ -63,7 +91,7 @@ model2base_model = {
     "google/gemma-2b": "gemma",
     "google/gemma-7b": "gemma",
     "Qwen/Qwen1.5-14B-Chat": "qwen1.5",
-    "google/gemma-2-9b-it": "gemma",
-    "mistralai/Mistral-7B-instruct-v0.3": "mixtral",
+    "google/gemma-2-9b-it": "gemma2",
+    "mistralai/Mistral-7B-instruct-v0.3": "mistral",
     "meta-llama/Llama-2-13b-chat-hf": "llama2"
 }
