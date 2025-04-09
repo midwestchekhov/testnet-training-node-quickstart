@@ -38,38 +38,38 @@
   #lora_alpha: 8
   #lora_dropout: 0.1
 
-#meta-llama/Llama-2-13b-chat-hf:
+meta-llama/Llama-2-13b-chat-hf:
   # Parameters used by LoraTrainingArguments and read by train_lora
-  #num_train_epochs: 3
-  #per_device_train_batch_size: 2
-  #gradient_accumulation_steps: 4    # effective batch size: 8
-  #lora_rank: 8                      # 표현력 증가를 위해 8 (필요시 16까지 고려)
-  #lora_alpha: 8                     # 일반적으로 rank의 0.5~1배 정도 (ex. rank 8 → 4~8)
-  #lora_dropout: 0.1                 # 드롭아웃 비율 (0.1~0.2 권장)
+  num_train_epochs: 2
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 4    # effective batch size: 8
+  lora_rank: 8                      # 표현력 증가를 위해 8 (필요시 16까지 고려)
+  lora_alpha: 8                     # 일반적으로 rank의 0.5~1배 정도 (ex. rank 8 → 4~8)
+  lora_dropout: 0.1                 # 드롭아웃 비율 (0.1~0.2 권장)
   # --- Parameters below are NOT used from LoraTrainingArguments ---
   # --- They are either hardcoded in train_lora or ignored ---
-  # learning_rate: 1e-4             # Ignored (Hardcoded as 2e-4 in SFTConfig)
+  learning_rate: 2.0e-4             # Ignored (Hardcoded as 2e-4 in SFTConfig)
   # lr_scheduler_type: cosine       # Ignored (Not passed to SFTConfig) # 코사인 스케줄러 사용 (평활한 감쇠) 
   # warmup_steps: 100               # Ignored (Hardcoded as 100 in SFTConfig)
   # max_seq_length: 4096            # Ignored (context_length parameter is used) # 기본 컨텍스트 길이 (필요에 따라 조정) 
-  # weight_decay: 0.01              # Ignored (Not passed to SFTConfig)
+  weight_decay: 0.01              # Ignored (Not passed to SFTConfig)
   # target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]  # Ignored (Hardcoded in LoraConfig as ["q_proj", "v_proj"])
 
-#Qwen/Qwen1.5-14B-Chat:
+Qwen/Qwen1.5-14B-Chat:
   # Parameters used by LoraTrainingArguments and read by train_lora
-  #num_train_epochs: 3
-  #per_device_train_batch_size: 1
-  #gradient_accumulation_steps: 8
-  #lora_rank: 8
-  #lora_alpha: 8
-  #lora_dropout: 0.1
+  num_train_epochs: 2
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 4
+  lora_rank: 8
+  lora_alpha: 8
+  lora_dropout: 0.1
   # --- Parameters below are NOT used from LoraTrainingArguments ---
   # --- They are either hardcoded in train_lora or ignored ---
-  # learning_rate: 1e-4
+  learning_rate: 2.0e-4
   # lr_scheduler_type: cosine
   # warmup_steps: 100
   # max_seq_length: 8192                 # Qwen은 긴 컨텍스트(최대 32K 지원) 가능 – 여기서는 8K로 설정
-  # weight_decay: 0.01
+  weight_decay: 0.01
   # target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
 
 google/gemma-2-9b-it:
