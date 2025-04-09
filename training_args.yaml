@@ -1,39 +1,105 @@
-Qwen/Qwen1.5-0.5B:
-  per_device_train_batch_size: 1
-  gradient_accumulation_steps: 8
-  num_train_epochs: 1
-  lora_rank: 8
-  lora_alpha: 16
-  lora_dropout: 0.1
+#Qwen/Qwen1.5-0.5B:
+  #per_device_train_batch_size: 1
+  #gradient_accumulation_steps: 8
+  #num_train_epochs: 1
+  #lora_rank: 8
+  #lora_alpha: 16
+  #lora_dropout: 0.1
 
-Qwen/Qwen1.5-1.8B:
-  per_device_train_batch_size: 1
-  gradient_accumulation_steps: 8
-  num_train_epochs: 1
-  lora_rank: 4
-  lora_alpha: 8
-  lora_dropout: 0.1
+#Qwen/Qwen1.5-1.8B:
+  #per_device_train_batch_size: 1
+  #gradient_accumulation_steps: 8
+  #num_train_epochs: 1
+  #lora_rank: 4
+  #lora_alpha: 8
+  #lora_dropout: 0.1
 
-Qwen/Qwen1.5-7B:
-  per_device_train_batch_size: 1
-  gradient_accumulation_steps: 8
-  num_train_epochs: 1
-  lora_rank: 4
-  lora_alpha: 8
-  lora_dropout: 0.1
+#Qwen/Qwen1.5-7B:
+  #per_device_train_batch_size: 1
+  #gradient_accumulation_steps: 8
+  #num_train_epochs: 1
+  #lora_rank: 4
+  #lora_alpha: 8
+  #lora_dropout: 0.1
 
-google/gemma-2b:
-  per_device_train_batch_size: 1
-  gradient_accumulation_steps: 8
-  num_train_epochs: 1
-  lora_rank: 4
-  lora_alpha: 8
-  lora_dropout: 0.1
+#google/gemma-2b:
+  #per_device_train_batch_size: 1
+  #gradient_accumulation_steps: 8
+  #num_train_epochs: 1
+  #lora_rank: 4
+  #lora_alpha: 8
+  #lora_dropout: 0.1
 
-google/gemma-7b:
-  per_device_train_batch_size: 1
-  gradient_accumulation_steps: 8
-  num_train_epochs: 1
-  lora_rank: 4
-  lora_alpha: 8
-  lora_dropout: 0.1
+#google/gemma-7b:
+  #per_device_train_batch_size: 1
+  #gradient_accumulation_steps: 8
+  #num_train_epochs: 1
+  #lora_rank: 4
+  #lora_alpha: 8
+  #lora_dropout: 0.1
+
+meta-llama/Llama-2-13b-chat-hf:
+  # 학습 관련 파라미터
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4       # effective batch size: 8
+  learning_rate: 1e-4
+  lr_scheduler_type: cosine            # 코사인 스케줄러 사용 (평활한 감쇠)
+  warmup_steps: 100
+  max_seq_length: 4096                 # 기본 컨텍스트 길이 (필요에 따라 조정)
+  weight_decay: 0.01
+
+  # LoRA 설정
+  lora:
+    lora_rank: 8                      # 표현력 증가를 위해 8 (필요시 16까지 고려)
+    lora_alpha: 8                     # 일반적으로 rank의 0.5~1배 정도 (ex. rank 8 → 4~8)
+    lora_dropout: 0.1                 # 드롭아웃 비율 (0.1~0.2 권장)
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+
+Qwen/Qwen1.5-14B-Chat:
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 1e-4
+  lr_scheduler_type: cosine
+  warmup_steps: 100
+  max_seq_length: 8192                 # Qwen은 긴 컨텍스트(최대 32K 지원) 가능 – 여기서는 8K로 설정
+  weight_decay: 0.01
+
+  lora:
+    lora_rank: 8
+    lora_alpha: 8
+    lora_dropout: 0.1
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+
+google/gemma-2-9b-it:
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 1e-4
+  lr_scheduler_type: cosine
+  warmup_steps: 100
+  max_seq_length: 8192                 # Gemma 모델은 8192 토큰 컨텍스트 지원
+  weight_decay: 0.01
+
+  lora:
+    lora_rank: 8
+    lora_alpha: 8
+    lora_dropout: 0.1
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+
+mistralai/Mistral-7B-instruct-v0.3:
+  num_train_epochs: 3
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 1e-4
+  lr_scheduler_type: cosine
+  warmup_steps: 100
+  max_seq_length: 4096                 # 기본 컨텍스트 길이 (스마트 컨트랙트 코드에 따라 조정)
+  weight_decay: 0.01
+
+  lora:
+    lora_rank: 8
+    lora_alpha: 8
+    lora_dropout: 0.1
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
