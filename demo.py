@@ -18,6 +18,9 @@ class LoraTrainingArguments:
     lora_rank: int
     lora_alpha: int
     lora_dropout: int
+    #added
+    learning_rate: float
+    weight_decay: float
 
 
 def train_lora(
@@ -46,7 +49,9 @@ def train_lora(
         per_device_train_batch_size=training_args.per_device_train_batch_size,
         gradient_accumulation_steps=training_args.gradient_accumulation_steps,
         warmup_steps=100,
-        learning_rate=2e-4,
+        #modified
+        learning_rate=training_args.learning_rate, # Get LR from input args
+        weight_decay=training_args.weight_decay,
         bf16=True,
         logging_steps=20,
         output_dir="outputs",
@@ -61,7 +66,10 @@ def train_lora(
         model_id,
         use_fast=True,
     )
-    
+
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token # Common practice
+        print("Set pad_token to eos_token")
     tokenizer.padding_side = 'right' #dunno
     
     model = AutoModelForCausalLM.from_pretrained(
