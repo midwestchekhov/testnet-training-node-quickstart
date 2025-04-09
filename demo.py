@@ -45,6 +45,11 @@ def train_lora(
         bnb_4bit_compute_dtype=torch.bfloat16,
     )
 
+     # --- DEBUGGING PRINT ---
+    print(f"DEBUG: Type of training_args.learning_rate BEFORE SFTConfig: {type(training_args.learning_rate)}")
+    print(f"DEBUG: Value of training_args.learning_rate BEFORE SFTConfig: {training_args.learning_rate}")
+    # --- END DEBUGGING PRINT ---
+
     training_args = SFTConfig(
         per_device_train_batch_size=training_args.per_device_train_batch_size,
         gradient_accumulation_steps=training_args.gradient_accumulation_steps,

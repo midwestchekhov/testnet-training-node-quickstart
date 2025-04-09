@@ -56,6 +56,7 @@ if __name__ == "__main__":
 
         # generate a random repo id based on timestamp
         gpu_type = get_gpu_type()
+        print(gpu_type)
 
         try:
             logger.info("Start to push the lora weight to the hub...")
@@ -87,6 +88,8 @@ if __name__ == "__main__":
                 task_id, repo_name, model2base_model[model_id], gpu_type, commit_hash
             )
             logger.info("Task submitted successfully")
+            print(commit_hash)
+            print(repo_name)
         except Exception as e:
             logger.error(f"Error: {e}")
             logger.info("Proceed to the next model...")
