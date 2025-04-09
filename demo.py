@@ -60,6 +60,7 @@ def train_lora(
         model_id,
         use_fast=True,
     )
+    
     tokenizer.padding_side = 'right' #dunno
     
     model = AutoModelForCausalLM.from_pretrained(
