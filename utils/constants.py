@@ -63,7 +63,7 @@ model2base_model = {
     "google/gemma-2b": "gemma",
     "google/gemma-7b": "gemma",
     "Qwen/Qwen1.5-14B-Chat": "qwen1.5",
-    "google/gemma-2-9b-it": "gemma2",
-    "mistralai/Mistral-7B-instruct-v0.3": "mistral",
-    "meta-llama/Llama-2-13b-chat-hf": "llama"
+    "google/gemma-2-9b-it": "gemma",
+    "mistralai/Mistral-7B-instruct-v0.3": "mixtral",
+    "meta-llama/Llama-2-13b-chat-hf": "llama2"
 }
