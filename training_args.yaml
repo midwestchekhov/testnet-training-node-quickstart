@@ -42,7 +42,7 @@ meta-llama/Llama-2-13b-chat-hf:
   # Parameters used by LoraTrainingArguments and read by train_lora
   num_train_epochs: 3
   per_device_train_batch_size: 2
-  gradient_accumulation_steps: 4       # effective batch size: 8
+  gradient_accumulation_steps: 4    # effective batch size: 8
   lora_rank: 8                      # 표현력 증가를 위해 8 (필요시 16까지 고려)
   lora_alpha: 8                     # 일반적으로 rank의 0.5~1배 정도 (ex. rank 8 → 4~8)
   lora_dropout: 0.1                 # 드롭아웃 비율 (0.1~0.2 권장)
@@ -58,8 +58,8 @@ meta-llama/Llama-2-13b-chat-hf:
 Qwen/Qwen1.5-14B-Chat:
   # Parameters used by LoraTrainingArguments and read by train_lora
   num_train_epochs: 3
-  per_device_train_batch_size: 2
-  gradient_accumulation_steps: 4
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
   lora_rank: 8
   lora_alpha: 8
   lora_dropout: 0.1
@@ -75,8 +75,8 @@ Qwen/Qwen1.5-14B-Chat:
 google/gemma-2-9b-it:
   # Parameters used by LoraTrainingArguments and read by train_lora
   num_train_epochs: 3
-  per_device_train_batch_size: 2
-  gradient_accumulation_steps: 4
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
   lora_rank: 8
   lora_alpha: 8
   lora_dropout: 0.1
@@ -93,8 +93,8 @@ google/gemma-2-9b-it:
 mistralai/Mistral-7B-instruct-v0.3:
   # Parameters used by LoraTrainingArguments and read by train_lora
   num_train_epochs: 3
-  per_device_train_batch_size: 2
-  gradient_accumulation_steps: 4
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
   lora_rank: 8
   lora_alpha: 8
   lora_dropout: 0.1
