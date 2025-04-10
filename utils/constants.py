@@ -144,12 +144,13 @@ model2size = {
     "Qwen/Qwen1.5-14B-Chat": 14_300_000_000,
     "google/gemma-2-9b-it": 9_000_000_000,
     "mistralai/Mistral-7B-Instruct-v0.3": 7_250_000_000,
-    "meta-llama/Llama-2-13b-chat-hf": 13_000_000_000
+    "meta-llama/Llama-2-13b-chat-hf": 13_000_000_000,
+    
      # Microsoft Phi 계열 (예시 값)
-    "microsoft/Phi-3.5-mini-instruct": 1_500_000_000,
-    "microsoft/Phi-3-mini-4k-instruct": 1_200_000_000,
-    "microsoft/Phi-3-medium-4k-instruct": 3_000_000_000,
-    "microsoft/Phi-4-mini-instruct": 1_600_000_000,
+    "microsoft/Phi-3.5-mini-instruct": 3_820_000_000,
+    "microsoft/Phi-3-mini-4k-instruct": 3_820_000_000,
+    "microsoft/Phi-3-medium-4k-instruct": 14_000_000_000,
+    "microsoft/Phi-4-mini-instruct": 3_840_000_000,
     "microsoft/phi-4": 4_000_000_000,
 
     # DeepSeek 계열 (예시 값)

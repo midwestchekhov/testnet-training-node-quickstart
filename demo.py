@@ -66,7 +66,7 @@ def train_lora(
         num_train_epochs=training_args.num_train_epochs,
      # Keep other params like warmup_steps, logging_steps etc. as you've set them
         warmup_steps=10, # As you modified
-        logging_steps=10, # As you modified
+        logging_steps=5, # As you modified
         bf16=True,
         output_dir="outputs",
         optim="paged_adamw_8bit",
@@ -74,7 +74,10 @@ def train_lora(
         max_seq_length=context_length,
         gradient_checkpointing=True,
         gradient_checkpointing_kwargs={'use_reentrant': False},
-        report_to="wandb" # If using WandB
+        report_to="wandb", # If using WandB
+        evaluation_strategy="no", #check with epoch, will it work?
+        save_strategy="epoch", #may need 
+        save_total_limits=3
 )
 
     tokenizer = AutoTokenizer.from_pretrained(
@@ -118,7 +121,7 @@ def train_lora(
     trainer.save_model("outputs")
 
     # remove checkpoint folder
-    os.system("rm -rf outputs/checkpoint-*")
+    # os.system("rm -rf outputs/checkpoint-*")
 
     # upload lora weights and tokenizer
     print("Training Completed.")
