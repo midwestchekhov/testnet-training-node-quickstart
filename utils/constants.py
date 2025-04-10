@@ -176,11 +176,11 @@ model2base_model = {
     "mistralai/Mistral-7B-Instruct-v0.3": "mistral",
     "meta-llama/Llama-2-13b-chat-hf": "llama2",
     
-    "microsoft/Phi-3.5-mini-instruct": "phi",
-    "microsoft/Phi-3-mini-4k-instruct": "phi",
-    "microsoft/Phi-3-medium-4k-instruct": "phi",
-    "microsoft/Phi-4-mini-instruct": "phi",
-    "microsoft/phi-4": "phi",
+    "microsoft/Phi-3.5-mini-instruct": "phi3",
+    "microsoft/Phi-3-mini-4k-instruct": "phi3",
+    "microsoft/Phi-3-medium-4k-instruct": "phi3",
+    "microsoft/Phi-4-mini-instruct": "phi4",
+    "microsoft/phi-4": "phi4",
 
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B": "qwen1.5",
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "qwen1.5",
