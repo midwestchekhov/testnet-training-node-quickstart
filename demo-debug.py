@@ -57,26 +57,24 @@ def train_lora(
     print(f"DEBUG: Intending to use Weight Decay: {training_args.weight_decay}")
     print(f"DEBUG: Intending to use Epochs: {training_args.num_train_epochs}")
 
-    training_args_sft = SFTConfig( # Renamed variable to avoid confusion
+    training_args = SFTConfig(
         per_device_train_batch_size=training_args.per_device_train_batch_size,
         gradient_accumulation_steps=training_args.gradient_accumulation_steps,
-     # Make SURE these lines explicitly use the values from the input object:
-        learning_rate=training_args.learning_rate,
+        warmup_steps=10, #lowered
+        #modified
+        learning_rate=training_args.learning_rate, # Get LR from input args
         weight_decay=training_args.weight_decay,
-        num_train_epochs=training_args.num_train_epochs,
-     # Keep other params like warmup_steps, logging_steps etc. as you've set them
-        warmup_steps=10, # As you modified
-        logging_steps=10, # As you modified
         bf16=True,
+        logging_steps=10, #for monitor
         output_dir="outputs",
         optim="paged_adamw_8bit",
         remove_unused_columns=False,
+        num_train_epochs=training_args.num_train_epochs,
         max_seq_length=context_length,
-        gradient_checkpointing=True,
-        gradient_checkpointing_kwargs={'use_reentrant': False},
-        report_to="wandb" # If using WandB
-)
-
+        gradient_checkpointing=True, # <--- ENSURE THIS IS ADDED/TRUE
+        gradient_checkpointing_kwargs={'use_reentrant': False}, #delete this if code breaks
+        report_to="wandb" #monitor hook
+    )
     tokenizer = AutoTokenizer.from_pretrained(
         model_id,
         use_fast=True,
