@@ -84,10 +84,10 @@ if __name__ == "__main__":
             logger.info(f"Commit hash: {commit_hash}")
             logger.info(f"Repo name: {repo_name}")
             # submit
-            submit_task(
-                task_id, repo_name, model2base_model[model_id], gpu_type, commit_hash
-            )
-            logger.info("Task submitted successfully")
+            #submit_task(
+            #    task_id, repo_name, model2base_model[model_id], gpu_type, commit_hash
+            #)
+            #logger.info("Task submitted successfully")
             print(commit_hash)
             print(repo_name)
         except Exception as e:
@@ -96,5 +96,5 @@ if __name__ == "__main__":
         finally:
             # cleanup merged_model and output
             os.system("rm -rf merged_model")
-            os.system("rm -rf outputs")
+            #os.system("rm -rf outputs")
             continue
