@@ -15,7 +15,7 @@ from utils.gpu_utils import get_gpu_type
 
 HF_USERNAME = os.environ["HF_USERNAME"]
 
-def split_training_data(src_file, train_file, val_file, split_ratio=0.8):
+def split_training_data(src_file, train_file, val_file, split_ratio=0.7):
     # 데이터 파일을 라인별로 읽어서 섞고 분할하기
     with open(src_file, "r", encoding="utf-8") as f:
         lines = f.readlines()
