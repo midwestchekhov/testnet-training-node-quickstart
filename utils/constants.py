@@ -190,4 +190,6 @@ model2base_model = {
     "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": "llama",
     "HuggingFaceH4/zephyr-7b-alpha": "zephyr",
     "HuggingFaceH4/zephyr-7b-beta": "zephyr",
+    "meta-llama/Meta-Llama-3-8B-Instruct": "llama3",
+    "meta-llama/Meta-Llama-3.1-8B-Instruct": "llama3",
 }
