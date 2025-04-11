@@ -1,35 +1,31 @@
 import json
 import os
-import random
-import datetime
 
 import requests
 import yaml
 from loguru import logger
-from huggingface_hub import HfApi
 
 from demo import LoraTrainingArguments, train_lora
-from utils.constants import model2base_model, model2size
+from utils.constants import model2size
 from utils.flock_api import get_task  # submit_task 부분은 제거할 예정
-from utils.gpu_utils import get_gpu_type
 
 HF_USERNAME = os.environ["HF_USERNAME"]
 
-#def split_training_data(src_file, train_file, val_file, split_ratio=0.8):
-    # 데이터 파일을 라인별로 읽어서 섞고 분할하기
-    #with open(src_file, "r", encoding="utf-8") as f:
-    #    lines = f.readlines()
-    #random.shuffle(lines)
-    #split_index = int(len(lines) * split_ratio)
-    #train_lines = lines[:split_index]
-    #val_lines = lines[split_index:]
-    #
-    # 분할된 데이터를 각각 저장
-    #with open(train_file, "w", encoding="utf-8") as f:
-    #    f.writelines(train_lines)
-    #with open(val_file, "w", encoding="utf-8") as f:
-    #    f.writelines(val_lines)
-    #logger.info(f"Data split completed: {len(train_lines)} training examples, {len(val_lines)} validation examples.")
+# def split_training_data(src_file, train_file, val_file, split_ratio=0.8):
+# 데이터 파일을 라인별로 읽어서 섞고 분할하기
+# with open(src_file, "r", encoding="utf-8") as f:
+#    lines = f.readlines()
+# random.shuffle(lines)
+# split_index = int(len(lines) * split_ratio)
+# train_lines = lines[:split_index]
+# val_lines = lines[split_index:]
+#
+# 분할된 데이터를 각각 저장
+# with open(train_file, "w", encoding="utf-8") as f:
+#    f.writelines(train_lines)
+# with open(val_file, "w", encoding="utf-8") as f:
+#    f.writelines(val_lines)
+# logger.info(f"Data split completed: {len(train_lines)} training examples, {len(val_lines)} validation examples.")
 
 if __name__ == "__main__":
     task_id = os.environ["TASK_ID"]
@@ -57,7 +53,7 @@ if __name__ == "__main__":
     with open(training_data_path, "wb") as f:
         for chunk in response.iter_content(chunk_size=8192):
             f.write(chunk)
-    
+
     # split the downloaded data into train and validation sets
     train_file = "data/train.jsonl"
     val_file = "data/val.jsonl"
@@ -65,7 +61,7 @@ if __name__ == "__main__":
 
     # Optionally, update each model's training arguments to include train/val file paths.
     for model_id in all_training_args.keys():
-        # 기존 arguments에 추가하는 방식: 
+        # 기존 arguments에 추가하는 방식:
         # 주의: LoraTrainingArguments 클래스가 train_file, eval_file를 받을 수 있어야 합니다.
         all_training_args[model_id]["train_file"] = train_file
         all_training_args[model_id]["eval_file"] = val_file
@@ -85,7 +81,9 @@ if __name__ == "__main__":
             continue
 
         # 여기까지 오면 모델 학습 및 내부 validation이 완료된 것으로 가정
-        logger.info(f"Model {model_id} trained and validated successfully. (Submission skipped)")
+        logger.info(
+            f"Model {model_id} trained and validated successfully. (Submission skipped)"
+        )
 
         # (기존 코드는 모델 저장 및 제출 관련 코드가 있으나, 제출 부분은 제거)
         # cleanup merged_model and outputs

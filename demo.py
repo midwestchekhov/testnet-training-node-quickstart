@@ -18,7 +18,7 @@ class LoraTrainingArguments:
     lora_rank: int
     lora_alpha: int
     lora_dropout: int
-    #added
+    # added
     learning_rate: float
     weight_decay: float
 
@@ -36,7 +36,7 @@ def train_lora(
         lora_alpha=training_args.lora_alpha,
         lora_dropout=training_args.lora_dropout,
         task_type="CAUSAL_LM",
-        use_dora=True, # turn off if something goes wrong
+        use_dora=True,  # turn off if something goes wrong
     )
 
     # Load model in 4-bit to do qLoRA
@@ -46,39 +46,45 @@ def train_lora(
         bnb_4bit_compute_dtype=torch.bfloat16,
     )
 
-     # --- DEBUGGING PRINT ---
-    print(f"DEBUG: Type of training_args.learning_rate BEFORE SFTConfig: {type(training_args.learning_rate)}")
-    print(f"DEBUG: Value of training_args.learning_rate BEFORE SFTConfig: {training_args.learning_rate}")
+    # --- DEBUGGING PRINT ---
+    print(
+        f"DEBUG: Type of training_args.learning_rate BEFORE SFTConfig: {type(training_args.learning_rate)}"
+    )
+    print(
+        f"DEBUG: Value of training_args.learning_rate BEFORE SFTConfig: {training_args.learning_rate}"
+    )
     # --- END DEBUGGING PRINT ---
 
     # Inside train_lora function in demo.py
-    print(f"DEBUG: Received training_args object: {training_args}") # See the whole object
+    print(
+        f"DEBUG: Received training_args object: {training_args}"
+    )  # See the whole object
     print(f"DEBUG: Intending to use LR: {training_args.learning_rate}")
     print(f"DEBUG: Intending to use Weight Decay: {training_args.weight_decay}")
     print(f"DEBUG: Intending to use Epochs: {training_args.num_train_epochs}")
 
-    training_args_sft = SFTConfig( # Renamed variable to avoid confusion
+    training_args_sft = SFTConfig(  # Renamed variable to avoid confusion
         per_device_train_batch_size=training_args.per_device_train_batch_size,
         gradient_accumulation_steps=training_args.gradient_accumulation_steps,
-     # Make SURE these lines explicitly use the values from the input object:
+        # Make SURE these lines explicitly use the values from the input object:
         learning_rate=training_args.learning_rate,
         weight_decay=training_args.weight_decay,
         num_train_epochs=training_args.num_train_epochs,
-     # Keep other params like warmup_steps, logging_steps etc. as you've set them
-        warmup_steps=10, # As you modified
-        logging_steps=5, # As you modified
+        # Keep other params like warmup_steps, logging_steps etc. as you've set them
+        warmup_steps=10,  # As you modified
+        logging_steps=5,  # As you modified
         bf16=True,
         output_dir="outputs",
         optim="paged_adamw_8bit",
         remove_unused_columns=False,
         max_seq_length=context_length,
         gradient_checkpointing=True,
-        gradient_checkpointing_kwargs={'use_reentrant': False},
-        report_to="wandb", # If using WandB
-        evaluation_strategy="no", #check with epoch, will it work?
-        save_strategy="epoch", #may need 
-        save_total_limits=3
-)
+        gradient_checkpointing_kwargs={"use_reentrant": False},
+        report_to="wandb",  # If using WandB
+        evaluation_strategy="no",  # check with epoch, will it work?
+        save_strategy="epoch",  # may need
+        save_total_limits=3,
+    )
 
     tokenizer = AutoTokenizer.from_pretrained(
         model_id,
@@ -86,10 +92,10 @@ def train_lora(
     )
 
     if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token # Common practice
+        tokenizer.pad_token = tokenizer.eos_token  # Common practice
         print("Set pad_token to eos_token")
-    tokenizer.padding_side = 'right' #dunno should i leave this when it runs?
-    
+    tokenizer.padding_side = "right"  # dunno should i leave this when it runs?
+
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         quantization_config=bnb_config,

@@ -18,7 +18,7 @@ class LoraTrainingArguments:
     lora_rank: int
     lora_alpha: int
     lora_dropout: int
-    #added
+    # added
     learning_rate: float
     weight_decay: float
 
@@ -45,17 +45,21 @@ def train_lora(
         bnb_4bit_compute_dtype=torch.bfloat16,
     )
 
-     # --- DEBUGGING PRINT ---
-    print(f"DEBUG: Type of training_args.learning_rate BEFORE SFTConfig: {type(training_args.learning_rate)}")
-    print(f"DEBUG: Value of training_args.learning_rate BEFORE SFTConfig: {training_args.learning_rate}")
+    # --- DEBUGGING PRINT ---
+    print(
+        f"DEBUG: Type of training_args.learning_rate BEFORE SFTConfig: {type(training_args.learning_rate)}"
+    )
+    print(
+        f"DEBUG: Value of training_args.learning_rate BEFORE SFTConfig: {training_args.learning_rate}"
+    )
     # --- END DEBUGGING PRINT ---
 
     training_args = SFTConfig(
         per_device_train_batch_size=training_args.per_device_train_batch_size,
         gradient_accumulation_steps=training_args.gradient_accumulation_steps,
         warmup_steps=100,
-        #modified
-        learning_rate=training_args.learning_rate, # Get LR from input args
+        # modified
+        learning_rate=training_args.learning_rate,  # Get LR from input args
         weight_decay=training_args.weight_decay,
         bf16=True,
         logging_steps=20,
@@ -64,8 +68,10 @@ def train_lora(
         remove_unused_columns=False,
         num_train_epochs=training_args.num_train_epochs,
         max_seq_length=context_length,
-        gradient_checkpointing=True, # <--- ENSURE THIS IS ADDED/TRUE
-        gradient_checkpointing_kwargs={'use_reentrant': False} #delete this if code breaks
+        gradient_checkpointing=True,  # <--- ENSURE THIS IS ADDED/TRUE
+        gradient_checkpointing_kwargs={
+            "use_reentrant": False
+        },  # delete this if code breaks
     )
     tokenizer = AutoTokenizer.from_pretrained(
         model_id,
@@ -73,10 +79,10 @@ def train_lora(
     )
 
     if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token # Common practice
+        tokenizer.pad_token = tokenizer.eos_token  # Common practice
         print("Set pad_token to eos_token")
-    tokenizer.padding_side = 'right' #dunno
-    
+    tokenizer.padding_side = "right"  # dunno
+
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         quantization_config=bnb_config,

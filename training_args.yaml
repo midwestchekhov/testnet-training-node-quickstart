@@ -49,9 +49,9 @@ meta-llama/Llama-2-13b-chat-hf:
   # --- Parameters below are NOT used from LoraTrainingArguments ---
   # --- They are either hardcoded in train_lora or ignored ---
   learning_rate: 2.0e-4             # Ignored (Hardcoded as 2e-4 in SFTConfig)
-  # lr_scheduler_type: cosine       # Ignored (Not passed to SFTConfig) # 코사인 스케줄러 사용 (평활한 감쇠) 
+  # lr_scheduler_type: cosine       # Ignored (Not passed to SFTConfig) # 코사인 스케줄러 사용 (평활한 감쇠)
   # warmup_steps: 100               # Ignored (Hardcoded as 100 in SFTConfig)
-  # max_seq_length: 4096            # Ignored (context_length parameter is used) # 기본 컨텍스트 길이 (필요에 따라 조정) 
+  # max_seq_length: 4096            # Ignored (context_length parameter is used) # 기본 컨텍스트 길이 (필요에 따라 조정)
   weight_decay: 0.01              # Ignored (Not passed to SFTConfig)
   # target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]  # Ignored (Hardcoded in LoraConfig as ["q_proj", "v_proj"])
 

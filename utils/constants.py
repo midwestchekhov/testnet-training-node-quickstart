@@ -22,15 +22,11 @@ mistral_template = {
     # Represents the system prompt, likely used as the very first instruction turn.
     # The actual Jinja logic for placement is complex, this is an approximation.
     "system_format": "<s>[INST] {content} [/INST]",
-
     # Standard user turn format
-    "user_format": "<s>[INST] {content} [/INST]", # Assuming BOS needed per turn based on Jinja structure
-
+    "user_format": "<s>[INST] {content} [/INST]",  # Assuming BOS needed per turn based on Jinja structure
     # Standard assistant turn format
     "assistant_format": " {content} </s>",
-
-    "system": "You are a helpful assistant.", # Default system prompt content
-
+    "system": "You are a helpful assistant.",  # Default system prompt content
     # --- UPDATED Tool/Function/Observation Formats ---
     # Based on official chat template structures. These are simplified representations.
     # Represents the assistant generating a tool call.
@@ -43,17 +39,13 @@ mistral_template = {
 
 llama2_template = {
     # Captures the system prompt structure. Needs careful handling by the training script.
-    "system_format": "<<SYS>>\n{content}\n<</SYS>>\n\n", # Note: BOS/INST are handled below/by script logic
-
+    "system_format": "<<SYS>>\n{content}\n<</SYS>>\n\n",  # Note: BOS/INST are handled below/by script logic
     # Standard user turn. Assumes BOS is prepended by script, includes INST.
     # The content might include the system prompt based on Jinja logic for the first turn.
     "user_format": "[INST] {content} [/INST]",
-
     # Standard assistant turn format
-    "assistant_format": " {content} </s>", # Includes leading space and EOS
-
-    "system": "You are a helpful assistant.", # Default system prompt content
-
+    "assistant_format": " {content} </s>",  # Includes leading space and EOS
+    "system": "You are a helpful assistant.",  # Default system prompt content
     # --- Placeholders for Tools ---
     "tool_format": "{content}",
     "function_format": "{content}",
@@ -121,7 +113,6 @@ model2template = {
     "microsoft/Phi-3-medium-4k-instruct": phi3_template,
     "microsoft/Phi-4-mini-instruct": phi4_template,
     "microsoft/phi-4": phi4_template,
-
     # DeepSeek 계열
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B": deepseek_template,
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": deepseek_template,
@@ -129,10 +120,9 @@ model2template = {
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B": deepseek_template,
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": deepseek_template,
     "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": deepseek_template,
-
     # Zephyr 계열
     "HuggingFaceH4/zephyr-7b-alpha": zephyr_template,
-    "HuggingFaceH4/zephyr-7b-beta": zephyr_template
+    "HuggingFaceH4/zephyr-7b-beta": zephyr_template,
 }
 
 model2size = {
@@ -145,14 +135,12 @@ model2size = {
     "google/gemma-2-9b-it": 9_000_000_000,
     "mistralai/Mistral-7B-Instruct-v0.3": 7_250_000_000,
     "meta-llama/Llama-2-13b-chat-hf": 13_000_000_000,
-    
-     # Microsoft Phi 계열 (예시 값)
+    # Microsoft Phi 계열 (예시 값)
     "microsoft/Phi-3.5-mini-instruct": 3_820_000_000,
     "microsoft/Phi-3-mini-4k-instruct": 3_820_000_000,
     "microsoft/Phi-3-medium-4k-instruct": 14_000_000_000,
     "microsoft/Phi-4-mini-instruct": 3_840_000_000,
     "microsoft/phi-4": 4_000_000_000,
-
     # DeepSeek 계열 (예시 값)
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B": 1_500_000_000,
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": 7_000_000_000,
@@ -160,7 +148,6 @@ model2size = {
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B": 14_000_000_000,
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": 32_000_000_000,
     "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": 70_000_000_000,
-
     # Zephyr 계열 (예시 값)
     "HuggingFaceH4/zephyr-7b-alpha": 7_000_000_000,
     "HuggingFaceH4/zephyr-7b-beta": 7_000_000_000,
@@ -176,20 +163,17 @@ model2base_model = {
     "google/gemma-2-9b-it": "gemma",
     "mistralai/Mistral-7B-Instruct-v0.3": "mistral",
     "meta-llama/Llama-2-13b-chat-hf": "llama2",
-    
     "microsoft/Phi-3.5-mini-instruct": "phi3",
     "microsoft/Phi-3-mini-4k-instruct": "phi3",
     "microsoft/Phi-3-medium-4k-instruct": "phi3",
     "microsoft/Phi-4-mini-instruct": "phi4",
     "microsoft/phi-4": "phi4",
-
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B": "qwen1.5",
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B": "qwen1.5",
     "deepseek-ai/DeepSeek-R1-Distill-Llama-8B": "llama",
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B": "qwen1.5",
     "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B": "qwen1.5",
     "deepseek-ai/DeepSeek-R1-Distill-Llama-70B": "llama",
-
     "HuggingFaceH4/zephyr-7b-alpha": "zephyr",
     "HuggingFaceH4/zephyr-7b-beta": "zephyr",
 }
