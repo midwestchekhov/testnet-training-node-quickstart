@@ -97,6 +97,16 @@ zephyr_template = {
     "system": "You are a helpful assistant.",
 }
 
+llama3_template = {
+    "system_format": "<|start_header_id|>system<|end_header_id|>\n\n{content}<|eot_id|>",
+    "user_format": "<|start_header_id|>user<|end_header_id|>\n\n{content}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+    "assistant_format": "{content}<|eot_id|>",
+    "tool_format": "{content}",
+    "function_format": "{content}",
+    "observation_format": "<|start_header_id|>tool<|end_header_id|>\n\n{content}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+    "system": "You are a helpful AI assistant specialized in smart contract analysis.",
+}
+
 model2template = {
     "Qwen/Qwen1.5-0.5B": qwen_template,
     "Qwen/Qwen1.5-1.8B": qwen_template,
@@ -123,6 +133,8 @@ model2template = {
     # Zephyr 계열
     "HuggingFaceH4/zephyr-7b-alpha": zephyr_template,
     "HuggingFaceH4/zephyr-7b-beta": zephyr_template,
+    "meta-llama/Meta-Llama-3-8B-Instruct": llama3_template,
+    "meta-llama/Meta-Llama-3.1-8B-Instruct": llama3_template
 }
 
 model2size = {
@@ -151,6 +163,8 @@ model2size = {
     # Zephyr 계열 (예시 값)
     "HuggingFaceH4/zephyr-7b-alpha": 7_000_000_000,
     "HuggingFaceH4/zephyr-7b-beta": 7_000_000_000,
+    "meta-llama/Meta-Llama-3-8B-Instruct": 8_030_000_000,
+    "meta-llama/Meta-Llama-3.1-8B-Instruct": 8_030_000_000,
 }
 
 model2base_model = {
